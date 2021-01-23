@@ -4738,7 +4738,7 @@ console.log(artistasPorEdad(artistas, 30));
 //y devuelva un array con les artistas que tiene más de esa cantidad de discos,
 //ordenados de mayor a menor según cantidad de discos
 const artistasConMasDiscosQue = (array, cantidadDeDiscos) => {
-  return array
+  const artistasConMasDeCincoDiscos = array
     .filter((artista) => artista.discos.length >= cantidadDeDiscos)
     .sort((a, b) => {
       if (a.discos.length > b.discos.length) {
@@ -4749,6 +4749,7 @@ const artistasConMasDiscosQue = (array, cantidadDeDiscos) => {
         return 0;
       }
     });
+  return artistasConMasDeCincoDiscos;
 };
 console.log(artistasConMasDiscosQue(artistas, 5));
 
@@ -4772,7 +4773,7 @@ console.log(artistaConMasEntradasVendidas(artistas));
 // artistaConMayorRecaudacion, que tome por parámetro un array de artistas
 //y devuelva el objeto artista que más recaudó en su último recital (entradasVendidas * costoEntradas)
 const artistaConMayorRecaudacion = (array) => {
-  return array.reduce((acc, cur) => {
+  const artMayorRecaudacion = array.reduce((acc, cur) => {
     if (
       acc.ultimoRecital.entradasVendidas * acc.ultimoRecital.costoEntradas >
       cur.ultimoRecital.entradasVendidas * cur.ultimoRecital.costoEntradas
@@ -4782,33 +4783,44 @@ const artistaConMayorRecaudacion = (array) => {
       return cur;
     }
   });
+  return artMayorRecaudacion;
 };
 console.log(artistaConMayorRecaudacion(artistas));
 
 // artistasConDiscoEnAnio, que tome por parámetro un parámetro "anio",
 //y devuelva un array con los artistas que tengan publicado al menos un disco en dicho año
 const artistasConDiscoEnAnio = (array, anio) => {
-  return array.filter((artista) =>
+  const artistaConDiscoEn1999 = array.filter((artista) =>
     artista.discos.some(
       (artistaFiltrado) => artistaFiltrado.anioLanzamiento === anio
     )
   );
+  return artistaConDiscoEn1999;
 };
 console.log(artistasConDiscoEnAnio(artistas, 1999));
 
 // artistaConMasCopias, que devuelva el objeto artista que más copias de discos en total vendió
 const artistaConMasCopias = (array) => {
-  return array.reduce((acc, cur) => {
-    console.log(cur.discos);
-    cur.discos.reduce((acc2, cur2) => {
-      console.log(cur2.copiasVendidas);
-      acc2 += cur2.copiasVendidas;
-      console.log(acc2);
-    }, 0);
-    return acc;
+  const totalDeCopiasVendidas = array.reduce((acc, cur) => {
+    cur.discos
+      .reduce((acc2, cur2) => {
+        acc2 += cur2.copiasVendidas;
+        console.log(acc2);
+        return acc2;
+      }, 0)
+      //Trabada desde aca
+      .reduce((acc3, cur3) => {
+        if (acc3 > cur3) {
+          return acc3;
+        } else {
+          return cur3;
+        }
+      });
+    console.log(acc3);
   }, 0);
+  return totalDeCopiasVendidas;
 };
-//console.log(artistaConMasCopias(artistas));
+console.log(artistaConMasCopias(artistas));
 
 // cantidadDeArtistasPorInstrumento, que tome por parámetro un array de artistas
 //y devuelva un objeto donde cada "instrumento" es una propiedad
