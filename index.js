@@ -4801,12 +4801,12 @@ console.log(artistasConDiscoEnAnio(artistas, 1999));
 
 // artistaConMasCopias, que devuelva el objeto artista que más copias de discos en total vendió
 const artistaConMasCopias = (array) => {
-  return array
+  const resultado = array
     .map((artista) => {
       return artista.discos.reduce((acc, cur) => {
         return acc + cur.copiasVendidas;
       }, 0);
-    }) //Trabada desde aca
+    })
     .reduce((acc2, cur2) => {
       if (acc2 > cur2) {
         return acc2;
@@ -4814,21 +4814,39 @@ const artistaConMasCopias = (array) => {
         return cur2;
       }
     });
+  return resultado;
 };
 console.log(artistaConMasCopias(artistas));
 
 // cantidadDeArtistasPorInstrumento, que tome por parámetro un array de artistas
 //y devuelva un objeto donde cada "instrumento" es una propiedad
 //y su valor la cantidad de artistas que tocan dicho instrumento
-// const cantidadDeArtistasPorInstrumento = (array) => {
-//   //return artistas.reduce((acc, cur) => {
-//     //si en el objeto no existe artista[curr.instrumento]
-//       //agregar instrumento al objeto
-//     //else, si existo
-//       //agregarle un puntito mas a ese objeto
-//   }, {})
-// };
+
+const cantidadDeArtistasPorInstrumento = (array) => {
+  const cantidad = array.reduce((acc, cur) => {
+    if (!acc[cur.instrumento]) {
+      acc[cur.instrumento] = 1;
+    } else {
+      acc[cur.instrumento] = acc[cur.instrumento] + 1;
+    }
+    return acc;
+  }, {});
+  return cantidad;
+};
+console.log(cantidadDeArtistasPorInstrumento(artistas));
 
 // cantidadDeArtistasPorGenero, que tome por parámetro un array de artistas
 //y devuelva un objeto donde cada "género" es una propiedad
 //y su valor la cantidad de artistas de dicho género
+const cantidadDeArtistasPorGenero = (array) => {
+  const cantidad = array.reduce((acc, cur) => {
+    if (!acc[cur.genero]) {
+      acc[cur.genero] = 1;
+    } else {
+      acc[cur.genero] = acc[cur.genero] + 1;
+    }
+    return acc;
+  }, {});
+  return cantidad;
+};
+console.log(cantidadDeArtistasPorGenero(artistas));
