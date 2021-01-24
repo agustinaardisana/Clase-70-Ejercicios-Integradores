@@ -4801,7 +4801,7 @@ console.log(artistasConDiscoEnAnio(artistas, 1999));
 
 // artistaConMasCopias, que devuelva el objeto artista que más copias de discos en total vendió
 const artistaConMasCopias = (array) => {
-  const resultado = array
+  const masCopias = array
     .map((artista) => {
       return artista.discos.reduce((acc, cur) => {
         return acc + cur.copiasVendidas;
@@ -4814,7 +4814,15 @@ const artistaConMasCopias = (array) => {
         return cur2;
       }
     });
-  return resultado;
+
+  const encontrarArtista = array.find((artista) => {
+    return (
+      artista.discos.reduce((acc, cur) => {
+        return acc + cur.copiasVendidas;
+      }, 0) === masCopias
+    );
+  });
+  return encontrarArtista;
 };
 console.log(artistaConMasCopias(artistas));
 
