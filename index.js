@@ -4801,24 +4801,19 @@ console.log(artistasConDiscoEnAnio(artistas, 1999));
 
 // artistaConMasCopias, que devuelva el objeto artista que más copias de discos en total vendió
 const artistaConMasCopias = (array) => {
-  const totalDeCopiasVendidas = array.reduce((acc, cur) => {
-    cur.discos
-      .reduce((acc2, cur2) => {
-        acc2 += cur2.copiasVendidas;
-        console.log(acc2);
+  return array
+    .map((artista) => {
+      return artista.discos.reduce((acc, cur) => {
+        return acc + cur.copiasVendidas;
+      }, 0);
+    }) //Trabada desde aca
+    .reduce((acc2, cur2) => {
+      if (acc2 > cur2) {
         return acc2;
-      }, 0)
-      //Trabada desde aca
-      .reduce((acc3, cur3) => {
-        if (acc3 > cur3) {
-          return acc3;
-        } else {
-          return cur3;
-        }
-      });
-    console.log(acc3);
-  }, 0);
-  return totalDeCopiasVendidas;
+      } else {
+        return cur2;
+      }
+    });
 };
 console.log(artistaConMasCopias(artistas));
 
@@ -4834,4 +4829,6 @@ console.log(artistaConMasCopias(artistas));
 //   }, {})
 // };
 
-// cantidadDeArtistasPorGenero, que tome por parámetro un array de artistas y devuelva un objeto donde cada "género" es una propiedad y su valor la cantidad de artistas de dicho género
+// cantidadDeArtistasPorGenero, que tome por parámetro un array de artistas
+//y devuelva un objeto donde cada "género" es una propiedad
+//y su valor la cantidad de artistas de dicho género
